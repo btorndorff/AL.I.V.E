@@ -62,7 +62,7 @@ app.post('/translate', upload.single('image'), async (req, res) => {
       translatedText: translatedText,
     });
 
-    console.log(res)
+    // console.log(res)
   } else {
     res.status(400).send("Please upload a valid image");
   }

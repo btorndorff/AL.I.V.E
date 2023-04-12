@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  height: 100%;
 }
 
 .App-logo {
@@ -26,6 +27,28 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.Home {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* text-align: left; */
+}
+
+.image-button {
+  /* margin-left: 10px; */
+}
+
+.file-upload {
+  margin-bottom: 10px;
+}
+
+.button {
+  text-align: center;
+  margin: 2%;
 }
 
 @keyframes App-logo-spin {

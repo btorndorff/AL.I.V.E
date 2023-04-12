@@ -20,7 +20,14 @@ const photoTranslate = async (fileName, language) => {
   // }
 
   // best guess classification
-  const classification = webDetection.bestGuessLabels[0].label 
+  let classification = ""
+  if (webDetection.bestGuessLabels.length) {
+    classification = webDetection.bestGuessLabels[0].label 
+  } else {
+    return ['none', 'none']
+  }
+
+
   // console.log(classification) 
 
   // translate classification to target language
