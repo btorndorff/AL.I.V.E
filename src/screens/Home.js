@@ -44,11 +44,14 @@ const Home = () => {
                 base64Image = reader.result.split(",")[1];
             };
         }
+
+        console.log(base64Image)
         
         try {
             // Send a POST request to the backend API to process the image
+            // during testing change this to a localhost if modifying the backend
             const response = await axios.post(
-                "http://localhost:3001/translate",
+                "https://alive-hci.uk.r.appspot.com/translate",
                 {
                     image: base64Image,
                     language: selectedLanguage,
