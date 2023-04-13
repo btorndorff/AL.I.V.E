@@ -10,7 +10,7 @@ const videoConstraints = {
 
 const Home = () => {
     const [selectedFile, setSelectedFile] = useState(null);
-    const [selectedLanguage, setSelectedLanguage] = useState("JA");
+    const [selectedLanguage, setSelectedLanguage] = useState("BG");
     const [result, setResult] = useState(null);
     const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
     const [uploadMode, setUploadMode] = useState(false);
@@ -28,7 +28,7 @@ const Home = () => {
         setSelectedFile(event.target.files[0]);
         // Read the file as a base64-encoded string
         const reader = new FileReader();
-        reader.readAsDataURL(selectedFile);
+        reader.readAsDataURL(event.target.files[0]);
         reader.onload = async () => {
             const base64Image = reader.result;
             setPicture(base64Image)
@@ -154,9 +154,8 @@ const Home = () => {
                                 Capture Instead
                         </button>
 
-                        {imagePreviewUrl && (
-                            <img src={imagePreviewUrl} alt="Selected File" style={{ width: "100%", maxWidth: "500px" }} />
-                        )}
+                        {picture ? <img src={picture} style={{ width: "100%", maxWidth: "500px" }}/> : <div></div>}
+
                         <div className="file-upload ">
                             <label htmlFor="image">Select an image: </label>
                             <input className="mx-2" type="file" id="image" onChange={handleFileChange} />
