@@ -13,9 +13,11 @@ const Home = () => {
     const [selectedLanguage, setSelectedLanguage] = useState("JA");
     const [result, setResult] = useState(null);
     const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+    const [uploadMode, setUploadMode] = useState(false);
 
     const [picture, setPicture] = useState('')
     const webcamRef = React.useRef(null)
+
     const capture = React.useCallback(() => {
         const pictureSrc = webcamRef.current.getScreenshot()
         setPicture(pictureSrc)
@@ -24,29 +26,38 @@ const Home = () => {
 
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
+        // Read the file as a base64-encoded string
+        const reader = new FileReader();
+        reader.readAsDataURL(selectedFile);
+        reader.onload = async () => {
+            const base64Image = reader.result;
+            setPicture(base64Image)
+        };
     };
 
     const handleLanguageChange = (event) => {
         setSelectedLanguage(event.target.value);
     };
 
+    // function translate(base64Image)
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        let base64Image = ''
-    
-        if (picture != '') {
-            base64Image = picture.split(",")[1];
-        } else {
-            // Read the file as a base64-encoded string
-            const reader = new FileReader();
-            reader.readAsDataURL(selectedFile);
-            reader.onload = async () => {
-                base64Image = reader.result.split(",")[1];
-            };
-        }
+        let base64Image = picture.split(",")[1]
 
-        console.log(base64Image)
-        
+        // if (picture != '') {
+        //     base64Image = picture.split(",")[1];
+        // } else {
+        //     // Read the file as a base64-encoded string
+        //     const reader = new FileReader();
+        //     reader.readAsDataURL(selectedFile);
+        //     reader.onload = async () => {
+        //         base64Image = reader.result.split(",")[1];
+        //     };
+        // }
+
+        // console.log(base64Image)
+
         try {
             // Send a POST request to the backend API to process the image
             // during testing change this to a localhost if modifying the backend
@@ -65,7 +76,6 @@ const Home = () => {
 
             // Update the state with the result
             setResult(response.data);
-            // setSelectedFile(null); // clear the selected file after submitting
 
             // Display the submitted image
             const imagePreviewUrl = URL.createObjectURL(selectedFile);
@@ -79,49 +89,81 @@ const Home = () => {
     return (
         <div className="Home">
             <form onSubmit={handleSubmit}>
-                <div>
-                    {picture == '' ? (
-                        <Webcam
-                            audio={false}
-                            height={400}
-                            ref={webcamRef}
-                            width={400}
-                            screenshotFormat="image/jpeg"
-                            videoConstraints={videoConstraints}
-                        />
-                    ) : (
-                        <img src={picture} />
-                    )}
-                </div>
-
-                <div>
-                    {picture != '' ? (
-                        <button
+                {!uploadMode ?
+                    <div className="d-flex flex-column">
+                        <button className="btn btn-primary"
                             onClick={(e) => {
                                 e.preventDefault()
+                                setUploadMode(true)
                                 setPicture('')
-                            }}
-                            className="btn btn-primary my-2"
-                        >
-                            Retake
+                                setImagePreviewUrl(null)
+                                setResult(null)
+                            }}>
+                                Upload Instead
                         </button>
-                    ) : (
-                        <button
+
+                        <div>
+                            {picture == '' ? (
+                                <Webcam
+                                    audio={false}
+                                    height={400}
+                                    ref={webcamRef}
+                                    width={400}
+                                    screenshotFormat="image/jpeg"
+                                    videoConstraints={videoConstraints}
+                                />
+                            ) : (
+                                <img src={picture} />
+                            )}
+                        </div>
+
+                        <div>
+                            {picture != '' ? (
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault()
+                                        setPicture('')
+                                    }}
+                                    className="btn btn-primary my-2"
+                                >
+                                    Retake
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault()
+                                        capture()
+                                    }}
+                                    className="btn btn-danger my-2"
+                                >
+                                    Capture
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                    :
+                    <div className="d-flex flex-column">
+                        <button className="btn btn-primary "
                             onClick={(e) => {
                                 e.preventDefault()
-                                capture()
-                            }}
-                            className="btn btn-danger my-2"
-                        >
-                            Capture
+                                setUploadMode(false)
+                                setPicture('')
+                                setImagePreviewUrl(null)
+                                setResult(null)
+                            }}>
+                                Capture Instead
                         </button>
-                    )}
-                </div>
 
-                <div className="file-upload">
-                    <label htmlFor="image">Select an image: </label>
-                    <input className="mx-2" type="file" id="image" onChange={handleFileChange} />
-                </div>
+                        {imagePreviewUrl && (
+                            <img src={imagePreviewUrl} alt="Selected File" style={{ width: "100%", maxWidth: "500px" }} />
+                        )}
+                        <div className="file-upload ">
+                            <label htmlFor="image">Select an image: </label>
+                            <input className="mx-2" type="file" id="image" onChange={handleFileChange} />
+                        </div>
+                        
+                    </div>
+                }
 
                 <div>
                     <label htmlFor="language">Select a language: </label>
@@ -161,16 +203,11 @@ const Home = () => {
                 <button className="button" type="submit">Submit</button>
             </form>
 
-            {imagePreviewUrl && (
-                <img src={imagePreviewUrl} alt="Selected File" style={{ width: "100%", maxWidth: "500px" }} />
-            )}
-
-
             {result && (
                 <div>
                     <h2>Result:</h2>
                     <p>Classification: {result.classification}</p>
-                    <p>Translation: {result.translatedText}</p>
+                    <p>Translation: {result.translation}</p>
                 </div>
             )}
         </div>
