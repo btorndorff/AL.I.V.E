@@ -9,20 +9,28 @@ const videoConstraints = {
 }
 
 const Home = () => {
+    const FACING_MODE_USER = "user";
+    const FACING_MODE_ENVIRONMENT = "environment";
+
     const [selectedFile, setSelectedFile] = useState(null);
     const [selectedLanguage, setSelectedLanguage] = useState("BG");
     const [result, setResult] = useState(null);
-    const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+    // const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
     const [uploadMode, setUploadMode] = useState(false);
-
     const [picture, setPicture] = useState('')
+    const [facingMode, setFacingMode] = React.useState(FACING_MODE_USER);
     const webcamRef = React.useRef(null)
+    
 
     const capture = React.useCallback(() => {
         const pictureSrc = webcamRef.current.getScreenshot()
         setPicture(pictureSrc)
         // console.log(pictureSrc)
     })
+
+    const videoConstraints = {
+        facingMode: FACING_MODE_USER
+    };
 
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
@@ -39,24 +47,20 @@ const Home = () => {
         setSelectedLanguage(event.target.value);
     };
 
+    const handleSwitch = React.useCallback(() => {
+        setFacingMode(
+          prevState =>
+            prevState === FACING_MODE_USER
+              ? FACING_MODE_ENVIRONMENT
+              : FACING_MODE_USER
+        );
+      }, []);
+
     // function translate(base64Image)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         let base64Image = picture.split(",")[1]
-
-        // if (picture != '') {
-        //     base64Image = picture.split(",")[1];
-        // } else {
-        //     // Read the file as a base64-encoded string
-        //     const reader = new FileReader();
-        //     reader.readAsDataURL(selectedFile);
-        //     reader.onload = async () => {
-        //         base64Image = reader.result.split(",")[1];
-        //     };
-        // }
-
-        // console.log(base64Image)
 
         try {
             // Send a POST request to the backend API to process the image
@@ -78,8 +82,8 @@ const Home = () => {
             setResult(response.data);
 
             // Display the submitted image
-            const imagePreviewUrl = URL.createObjectURL(selectedFile);
-            setImagePreviewUrl(imagePreviewUrl);
+            // const imagePreviewUrl = URL.createObjectURL(selectedFile);
+            // setImagePreviewUrl(imagePreviewUrl);
         } catch (error) {
             console.log(error);
         }
@@ -96,11 +100,13 @@ const Home = () => {
                                 e.preventDefault()
                                 setUploadMode(true)
                                 setPicture('')
-                                setImagePreviewUrl(null)
+                                // setImagePreviewUrl(null)
                                 setResult(null)
                             }}>
                                 Upload Instead
                         </button>
+
+                        <button onClick={handleSwitch}>Switch camera</button>
 
                         <div>
                             {picture == '' ? (
@@ -110,7 +116,10 @@ const Home = () => {
                                     ref={webcamRef}
                                     width={400}
                                     screenshotFormat="image/jpeg"
-                                    videoConstraints={videoConstraints}
+                                    videoConstraints={{
+                                        ...videoConstraints,
+                                        facingMode
+                                      }}
                                 />
                             ) : (
                                 <img src={picture} />
@@ -148,7 +157,7 @@ const Home = () => {
                                 e.preventDefault()
                                 setUploadMode(false)
                                 setPicture('')
-                                setImagePreviewUrl(null)
+                                // setImagePreviewUrl(null)
                                 setResult(null)
                             }}>
                                 Capture Instead
