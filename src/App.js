@@ -6,8 +6,8 @@ import Profile from './screens/Profile'
 function App() {
   return (
     <div className="App">
-      <Home />
-      {/* <Profile /> */}
+      {/* <Home /> */}
+      <Profile />
       {/* <p>hi</p> */}
     </div>
   );

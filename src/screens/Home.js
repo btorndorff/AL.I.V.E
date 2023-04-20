@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Webcam from 'react-webcam'
-const WebcamComponent = () => <Webcam />
-const videoConstraints = {
-    width: 400,
-    height: 400,
-    facingMode: 'user',
-}
+// const WebcamComponent = () => <Webcam />
+// const videoConstraints = {
+//     width: 400,
+//     height: 400,
+//     facingMode: 'user',
+// }
 
 const Home = () => {
     const FACING_MODE_USER = "user";
@@ -20,7 +20,7 @@ const Home = () => {
     const [picture, setPicture] = useState('')
     const [facingMode, setFacingMode] = React.useState(FACING_MODE_USER);
     const webcamRef = React.useRef(null)
-    
+
 
     const capture = React.useCallback(() => {
         const pictureSrc = webcamRef.current.getScreenshot()
@@ -29,7 +29,8 @@ const Home = () => {
     })
 
     const videoConstraints = {
-        facingMode: FACING_MODE_USER
+        facingMode: FACING_MODE_USER,
+        aspectRatio: 0.6666666667,
     };
 
     const handleFileChange = (event) => {
@@ -49,12 +50,12 @@ const Home = () => {
 
     const handleSwitch = React.useCallback(() => {
         setFacingMode(
-          prevState =>
-            prevState === FACING_MODE_USER
-              ? FACING_MODE_ENVIRONMENT
-              : FACING_MODE_USER
+            prevState =>
+                prevState === FACING_MODE_USER
+                    ? FACING_MODE_ENVIRONMENT
+                    : FACING_MODE_USER
         );
-      }, []);
+    }, []);
 
     // function translate(base64Image)
 
@@ -103,7 +104,7 @@ const Home = () => {
                                 // setImagePreviewUrl(null)
                                 setResult(null)
                             }}>
-                                Upload Instead
+                            Upload Instead
                         </button>
 
                         <button onClick={handleSwitch}>Switch camera</button>
@@ -112,14 +113,13 @@ const Home = () => {
                             {picture == '' ? (
                                 <Webcam
                                     audio={false}
-                                    height={400}
                                     ref={webcamRef}
-                                    width={400}
                                     screenshotFormat="image/jpeg"
                                     videoConstraints={{
                                         ...videoConstraints,
                                         facingMode
-                                      }}
+                                    }}
+                                    className="webcam"
                                 />
                             ) : (
                                 <img src={picture} />
@@ -160,16 +160,16 @@ const Home = () => {
                                 // setImagePreviewUrl(null)
                                 setResult(null)
                             }}>
-                                Capture Instead
+                            Capture Instead
                         </button>
 
-                        {picture ? <img src={picture} style={{ width: "100%", maxWidth: "500px" }}/> : <div></div>}
+                        {picture ? <img src={picture} style={{ width: "100%", maxWidth: "500px" }} /> : <div></div>}
 
                         <div className="file-upload ">
                             <label htmlFor="image">Select an image: </label>
                             <input className="mx-2" type="file" id="image" onChange={handleFileChange} />
                         </div>
-                        
+
                     </div>
                 }
 

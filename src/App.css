@@ -1,6 +1,12 @@
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
   height: 100%;
+}
+
+body {
+  height: 100vh;
+
 }
 
 .App-logo {
@@ -35,6 +41,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
   /* text-align: left; */
 }
 
@@ -49,6 +56,83 @@
 .button {
   text-align: center;
   margin: 2%;
+}
+
+.webcam {
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+}
+
+.webcam-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  position: relative;
+  height: 100%;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: absolute;
+  bottom: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1;
+  width: 50%;
+}
+
+.switch-button {
+  width: 55px;
+  height: 55px;
+}
+
+.language-select {
+  position: absolute;
+  top: 10px;
+  z-index: 1;
+}
+
+.no-touch {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pop-up {
+  position: absolute;
+  width: auto;
+  height: 20%;
+  background: white;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pop-up img {
+  height: 90%;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.word-info p {
+  margin: 0;
+  font-weight: bold;
+  text-align: center;
+  margin-right: 5px;
+  
+
 }
 
 @keyframes App-logo-spin {
