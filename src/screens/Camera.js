@@ -64,8 +64,9 @@ const Camera = () => {
       // Send a POST request to the backend API to process the image
       // during testing change this to a localhost if modifying the backend
       //https://alive-hci.uk.r.appspot.com/translate
+      // http://localhost:8080/translate
       const response = await axios.post(
-        "http://localhost:8080/translate",
+        "https://alive-hci.uk.r.appspot.com/translate",
         {
           image: picture,
           language: selectedLanguage,

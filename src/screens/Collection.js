@@ -6,8 +6,9 @@ import { Link } from 'react-router-dom';
 const Collection = () => {
     const [collectionData, setCollectionData] = useState([])
 
+    //https://alive-hci.uk.r.appspot.com/collection
     useEffect(() => {
-        fetch('http://localhost:8080/collection')
+        fetch('https://alive-hci.uk.r.appspot.com/collection')
             .then((response) => response.json())
             .then((data) => setCollectionData(data));
     }, [])
