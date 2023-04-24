@@ -92,11 +92,11 @@ const Camera = () => {
   return (
     <div className="full">
       <div className="webcam-container">
-      <div className="nav">
-        <Link to="/collection">
-          <img src={menu} />
-        </Link>
-      </div>
+        <div className="nav">
+          <Link to="/collection">
+            <img src={menu} />
+          </Link>
+        </div>
 
         <div className="language-select">
           {/* <label htmlFor="language">Select a language: </label> */}

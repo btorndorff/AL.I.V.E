@@ -62,6 +62,8 @@ body {
   width: auto;
   height: 100%;
   object-fit: cover;
+  overflow: hidden;
+  
 }
 
 .full {
@@ -77,7 +79,10 @@ body {
   aspect-ratio: 2/3;
   position: relative;
   height: 100vh;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
+  overflow: hidden;
+  display: flex;
+  
 }
 
 .collection-container {
@@ -96,7 +101,7 @@ body {
   align-items: center;
   justify-content: center;
   position: absolute;
-  bottom: 10px;
+  bottom: 20px;
   padding: 20px;
   box-sizing: border-box;
   z-index: 1;
