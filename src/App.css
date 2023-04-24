@@ -134,6 +134,15 @@ body {
   left: 10px;
 }
 
+.logout {
+  position: absolute;
+  top: 10px;
+  z-index: 1;
+  left: 50%;
+  background-color: white;
+  padding: 10px;
+}
+
 
 .no-touch {
   position: absolute;

@@ -3,12 +3,13 @@ import menu from "../images/menu.png"
 import WordCard from "../components/WordCard";
 import { Link } from 'react-router-dom';
 
-const Collection = () => {
+const Collection = (props) => {
     const [collectionData, setCollectionData] = useState([])
 
     //https://alive-hci.uk.r.appspot.com/collection
+    //http://localhost:8080/collection/${props.id}
     useEffect(() => {
-        fetch('https://alive-hci.uk.r.appspot.com/collection')
+        fetch(`http://localhost:8080/collection/${props.id}`)
             .then((response) => response.json())
             .then((data) => setCollectionData(data));
     }, [])

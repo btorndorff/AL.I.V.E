@@ -7,7 +7,7 @@ import switchButton from '../images/switch.png'
 import menu from '../images/menu.png'
 import { Link } from 'react-router-dom';
 
-const Camera = () => {
+const Camera = (props) => {
   const [loading, setLoading] = useState(false)
   const [picture, setPicture] = useState('')
   const [facingMode, setFacingMode] = React.useState("user");
@@ -22,6 +22,7 @@ const Camera = () => {
 
   useEffect(() => {
     console.log("running")
+    console.log(props)
     handleSubmit();
   }, [picture]);
 
@@ -66,10 +67,11 @@ const Camera = () => {
       //https://alive-hci.uk.r.appspot.com/translate
       // http://localhost:8080/translate
       const response = await axios.post(
-        "https://alive-hci.uk.r.appspot.com/translate",
+        "http://localhost:8080/translate",
         {
           image: picture,
           language: selectedLanguage,
+          userid: props.id,
         },
         {
           headers: {
@@ -96,6 +98,10 @@ const Camera = () => {
           <Link to="/collection">
             <img src={menu} />
           </Link>
+        </div>
+
+        <div className="logout" onClick={props.logOut}>
+          <p>logout</p>
         </div>
 
         <div className="language-select">
