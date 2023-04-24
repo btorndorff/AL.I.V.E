@@ -1,12 +1,12 @@
 .App {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
+
 }
 
 body {
-  height: 100vh;
-
+  height: 100%;
 }
 
 .App-logo {
@@ -64,27 +64,44 @@ body {
   object-fit: cover;
 }
 
-.webcam-container {
+.full {
+  background-color: #000;
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #000;
+  height: 100%;
+}
+
+.webcam-container {
+  aspect-ratio: 2/3;
   position: relative;
   height: 100vh;
   overflow-y: hidden;
 }
 
+.collection-container {
+  aspect-ratio: 2/3;
+  position: relative;
+  height: 100vh;
+  overflow-x: scroll;
+  background-color: white;
+  /* overflow-y: hidden; */
+  /* background-color: #000; */
+}
+
 .buttons-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
+  justify-content: center;
   position: absolute;
   bottom: 10px;
   padding: 20px;
   box-sizing: border-box;
   z-index: 1;
-  width: 50%;
+  width: 100%;
+  /* width: 50%; */
 }
 
 .buttons-container * {
@@ -98,10 +115,20 @@ body {
 }
 
 .language-select {
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+}
+
+.nav {
   position: absolute;
   top: 10px;
   z-index: 1;
+  left: 10px;
 }
+
 
 .no-touch {
   position: absolute;
@@ -111,6 +138,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  top: 10px;
 }
 
 .pop-up {
@@ -124,6 +152,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* z-index: 1; */
 }
 
 .pop-up img {
@@ -132,12 +161,69 @@ body {
   border-radius: 10px;
 }
 
+.pop-up div {
+  margin: 15px;
+}
+
 .word-info p {
   margin: 0;
   font-weight: bold;
   text-align: center;
   margin-right: 5px;
-  
+}
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+.nav-menu-black {
+  filter: invert(1);
+  margin: 10px;
+}
+
+.collection {
+  width: auto;
+  aspect-ratio: 2/3;
+  background-color: white;
+  height: 100%;
+  max-width: 100%;
+}
+
+
+.collection-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 100px;
+  text-align: center;
+  margin: 10px
+}
+
+/* @media screen and (min-width: 768px) {
+  .collection-list {
+    grid-template-columns: repeat(5, 1fr);
+  }
+} */
+
+.word-card {
+  width: 100%;
+}
+
+.word-card img {
+  width: 90%;
+}
+
+.word-card p {
+  margin: 0;
+  font-size: x-large;
+}
+
+.translation {
+  font-weight: bold;
 }
 
 @keyframes App-logo-spin {
