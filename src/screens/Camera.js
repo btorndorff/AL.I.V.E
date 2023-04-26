@@ -68,9 +68,9 @@ const Camera = (props) => {
       // Send a POST request to the backend API to process the image
       // during testing change this to a localhost if modifying the backend
       //https://alive-hci.uk.r.appspot.com/translate
-      // http://alive-hci.uk.r.appspot.com/translate
+      // https://alive-hci.uk.r.appspot.com/translate
       const response = await axios.post(
-        "http://alive-hci.uk.r.appspot.com/translate",
+        "https://alive-hci.uk.r.appspot.com/translate",
         {
           image: picture,
           language: props.selectedLanguage,

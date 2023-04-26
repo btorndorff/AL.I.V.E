@@ -10,15 +10,15 @@ const Collection = (props) => {
     const [sentence, setSentence] = useState("")
 
     //https://alive-hci.uk.r.appspot.com/collection
-    //http://alive-hci.uk.r.appspot.com/collection/${props.id}
+    //https://alive-hci.uk.r.appspot.com/collection/${props.id}
     useEffect(() => {
-        fetch(`http://alive-hci.uk.r.appspot.com/collection/${props.id}`)
+        fetch(`https://alive-hci.uk.r.appspot.com/collection/${props.id}`)
             .then((response) => response.json())
             .then((data) => setCollectionData(data));
     }, [])
 
     useEffect(() => {
-        fetch(`http://alive-hci.uk.r.appspot.com/collection/${props.id}`)
+        fetch(`https://alive-hci.uk.r.appspot.com/collection/${props.id}`)
             .then((response) => response.json())
             .then((data) => setCollectionData(data));
     }, [result])
@@ -28,7 +28,7 @@ const Collection = (props) => {
         e.preventDefault();
         // const sentence = e.target.sentence.value;
         axios
-            .put(`http://alive-hci.uk.r.appspot.com/collection/add-sentence/${wordId}`, {
+            .put(`https://alive-hci.uk.r.appspot.com/collection/add-sentence/${wordId}`, {
                 sentence,
             })
             .then(({ data }) => {

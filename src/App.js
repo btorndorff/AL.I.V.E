@@ -46,7 +46,7 @@ function App() {
   useEffect(() => {
     if (profile) {
       console.log("user looking")
-      fetch(`http://alive-hci.uk.r.appspot.com/user/${profile.id}`)
+      fetch(`https://alive-hci.uk.r.appspot.com/user/${profile.id}`)
         .then(res => {
           if (res.status === 200) {
             // user exists in the database

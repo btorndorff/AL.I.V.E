@@ -20,7 +20,7 @@ const Nav = (props) => {
     const handleLanguageChange = (event) => {
         props.setSelectedLanguage(event.target.value);
         console.log(props.id)
-        axios.put(`http://alive-hci.uk.r.appspot.com/user/${props.id}`, { language: event.target.value })
+        axios.put(`https://alive-hci.uk.r.appspot.com/user/${props.id}`, { language: event.target.value })
             .then(response => {
                 console.log(response.data.message);
                 

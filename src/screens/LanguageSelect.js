@@ -10,7 +10,7 @@ const LanguageSelect = (props) => {
     const handleButtonClick = async () => {
         console.log("here")
         const response = await axios.post(
-            "http://alive-hci.uk.r.appspot.com/users",
+            "https://alive-hci.uk.r.appspot.com/users",
             {
                 id: props.id,
                 language: props.selectedLanguage
