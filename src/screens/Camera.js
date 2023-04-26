@@ -5,13 +5,13 @@ import uploadButton from '../images/upload.png'
 import cameraButton from '../images/camera.png'
 import switchButton from '../images/switch.png'
 import menu from '../images/menu.png'
-import { Link } from 'react-router-dom';
+
 
 const Camera = (props) => {
   const [loading, setLoading] = useState(false)
   const [picture, setPicture] = useState('')
   const [facingMode, setFacingMode] = React.useState("user");
-  const [selectedLanguage, setSelectedLanguage] = useState("BG");
+  // const [selectedLanguage, setSelectedLanguage] = useState("BG");
   const [result, setResult] = useState(null);
   const webcamRef = React.useRef(null)
 
@@ -23,7 +23,10 @@ const Camera = (props) => {
   useEffect(() => {
     console.log("running")
     console.log(props)
-    handleSubmit();
+    if (picture != '') {
+      handleSubmit();
+    }
+    
   }, [picture]);
 
   // handling the buttons
@@ -32,9 +35,9 @@ const Camera = (props) => {
     setPicture(pictureSrc)
   })
 
-  const handleLanguageChange = (event) => {
-    setSelectedLanguage(event.target.value);
-  };
+  // const handleLanguageChange = (event) => {
+  //   setSelectedLanguage(event.target.value);
+  // };
 
   const handleFileChange = (event) => {
     // setSelectedFile(event.target.files[0]);
@@ -65,12 +68,12 @@ const Camera = (props) => {
       // Send a POST request to the backend API to process the image
       // during testing change this to a localhost if modifying the backend
       //https://alive-hci.uk.r.appspot.com/translate
-      // http://localhost:8080/translate
+      // http://alive-hci.uk.r.appspot.com/translate
       const response = await axios.post(
-        "http://localhost:8080/translate",
+        "http://alive-hci.uk.r.appspot.com/translate",
         {
           image: picture,
-          language: selectedLanguage,
+          language: props.selectedLanguage,
           userid: props.id,
         },
         {
@@ -94,18 +97,18 @@ const Camera = (props) => {
   return (
     <div className="full">
       <div className="webcam-container">
-        <div className="nav">
-          <Link to="/collection">
-            <img src={menu} />
-          </Link>
+        <div className="nav" onClick={()=>props.setNav(true)}>
+          {/* <Link to="/collection"> */}
+          <img src={menu} />
+          {/* </Link> */}
         </div>
 
-        <div className="logout" onClick={props.logOut}>
+        {/* <div className="logout" onClick={props.logOut}>
           <p>logout</p>
-        </div>
+        </div> */}
 
-        <div className="language-select">
-          {/* <label htmlFor="language">Select a language: </label> */}
+        {/* <div className="language-select">
+          <label htmlFor="language">Select a language: </label>
           <select id="language" onChange={handleLanguageChange}>
             <option value="BG">Bulgarian</option>
             <option value="CS">Czech</option>
@@ -137,7 +140,7 @@ const Camera = (props) => {
             <option value="UK">Ukrainian</option>
             <option value="ZH">Chinese</option>
           </select>
-        </div>
+        </div> */}
 
         <Webcam
           audio={false}

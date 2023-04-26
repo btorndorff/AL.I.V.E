@@ -121,10 +121,22 @@ body {
 
 .language-select {
   color: white;
-  position: absolute;
-  top: 10px;
+  /* width: 25%; */
+  margin: 10px;
+  /* position: absolute; */
+  /* top: 10px;
   right: 10px;
-  z-index: 1;
+  z-index: 1; */
+}
+
+.line {
+  border: 1px solid #ccc;
+  width: 75%;
+}
+
+.x {
+  height: 50px;
+  margin-bottom: 100%;
 }
 
 .nav {
@@ -143,6 +155,10 @@ body {
   padding: 10px;
 }
 
+/* .scroll-wrapper {
+  position: relative;
+  overflow: auto;
+} */
 
 .no-touch {
   position: absolute;
@@ -157,8 +173,9 @@ body {
 
 .pop-up {
   position: absolute;
-  width: auto;
-  height: 20%;
+  max-height: auto;
+  max-width: 75%;
+  overflow: hidden;
   background: white;
   background: #FFFFFF;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -166,17 +183,32 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* z-index: 1; */
+  z-index: 2;
+}
+
+.info {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.info img {
+  max-width: 50%;
 }
 
 .pop-up img {
-  height: 90%;
+  max-width: 65%;
   margin: 10px;
   border-radius: 10px;
 }
 
 .pop-up div {
   margin: 15px;
+}
+
+.word-info {
+  z-index: 3;
 }
 
 .word-info p {

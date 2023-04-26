@@ -1,17 +1,45 @@
 import React, { useEffect, useState } from "react";
 import logo from "../images/aliveicon.png"
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 const LanguageSelect = (props) => {
+    const navigate = useNavigate();
+
+    const handleButtonClick = async () => {
+        console.log("here")
+        const response = await axios.post(
+            "http://alive-hci.uk.r.appspot.com/users",
+            {
+                id: props.id,
+                language: props.selectedLanguage
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        console.log(response)
+
+        props.setFirstTimeUser(false)
+    };
+
+    const handleLanguageChange = (event) => {
+        props.setSelectedLanguage(event.target.value);
+    };
+
     return (
         <div className="full">
             <div className="collection-container">
                 <div className="d-flex flex-column justify-content-center align-items-center m-2">
-                    <img src={logo} />
-                    <h2>What language do you want to learn?</h2>
+                    <img src={logo} className="mw-100" />
+                    <h2 className="text-center">What language do you want to learn?</h2>
                     <div className="language-select">
                         {/* <label htmlFor="language">Select a language: </label> */}
-                        <select id="language" onChange={props.handleLanguageChange}>
+                        <select id="language" onChange={handleLanguageChange}>
                             <option value="BG">Bulgarian</option>
                             <option value="CS">Czech</option>
                             <option value="DA">Danish</option>
@@ -43,13 +71,9 @@ const LanguageSelect = (props) => {
                             <option value="ZH">Chinese</option>
                         </select>
                     </div>
-                    <button onClick={() => console.log("click")}>Start!</button>
-                    
-                    <h2>AL.I.V.E</h2>
-                    <button onClick={() => props.login()}>Sign in with Google <img src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png" style={{ height: "10%", width: "10%" }} /></button>
+                    <button onClick={handleButtonClick} className="btn btn-success">Start!</button>
                 </div>
             </div>
-
         </div>
     )
 
