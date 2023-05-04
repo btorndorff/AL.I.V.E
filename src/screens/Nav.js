@@ -11,6 +11,7 @@ import axios from "axios";
 
 const Nav = (props) => {
     const navigate = useNavigate();
+    const figma = "https://www.figma.com/proto/ws7kCkd8p7azKV5WLZK99i/Tigers-Prototype?type=design&node-id=0-1&scaling=scale-down&starting-point-node-id=216%3A704&show-proto-sidebar=1"
 
     const handleLogOut = () => {
         navigate("/alive-frontend");
@@ -88,7 +89,7 @@ const Nav = (props) => {
                             {/* <img className="h-55 mx-1" src={collection}/> */}
                             <p className="m-0 mb-3">Collection</p>
                         </Link>
-                        <a className="text-decoration-none text-dark fs-3 mb-3" href="https://www.figma.com/proto/ws7kCkd8p7azKV5WLZK99i/Tigers-Prototype?node-id=216-704&scaling=scale-down&page-id=0%3A1&starting-point-node-id=216%3A728&show-proto-sidebar=1">Community</a>
+                        <a className="text-decoration-none text-dark fs-3 mb-3" href={figma}>Community</a>
                     </div>
 
                     <div className="mt-auto align-self-center mb-5" onClick={() => props.setNav(false)}>
